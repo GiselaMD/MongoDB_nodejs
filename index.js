@@ -58,6 +58,7 @@ db.once('open', function() {
         _id: new mongoose.Types.ObjectId(),
         nome: 'Gisela',
         sobrenome: 'Miranda',
+        convenio: 'unimed',
         cpf: 123456789,
         email: 'gisela_difini@hotmail.com',
         telefone: 984280979,
@@ -86,13 +87,88 @@ db.once('open', function() {
             // thats it!
             console.log("salvando exameP1")
             });
+
+            var exameP1_2 = new Exame({
+                tipos: 'Urina, Fezes',
+                CRMmedico: 2546,
+                paciente: paciente1._id    // assign the _id from the paciente
+                });
+
+            exameP1_2.save(function (err) {
+                if (err) return handleError(err);
+                // thats it!
+                console.log("salvando exameP1_2")
+                });
             console.log("salvando paciente1")
     });
 
-    // paciente2.save(function (err) {
+    paciente2.save(function (err) {
+        if (err) return handleError(err);
+    
+            var exameP2 = new Exame({
+            tipos: 'Sangue, Colesterol, Glicose, Urina',
+            CRMmedico: 2238,
+            paciente: paciente2._id    // assign the _id from the paciente
+            });
+        
+            exameP2.save(function (err) {
+            if (err) return handleError(err);
+            // thats it!
+            console.log("salvando exameP2")
+            });
+            console.log("salvando paciente2")
+    });
+
+    var bioquimico1 = new Bioquimico({
+        CRQ : 4465,
+        nome : "Thomas",
+        sobrenome : "Miller",
+        salario : 3200.00,
+        especialidade : "Sangue, Colesterol, Glicose, Albumina",
+        //exames : [exameP1._id, exameP2._id] 
+    });
+
+    var bioquimico2 = new Bioquimico({
+        CRQ : 4278,
+        nome : "Osvaldo",
+        salario : 2200.00,
+        especialidade : "Urina",
+        //exames : [exameP2._id, exameP1_2._id]
+    });
+
+    var bioquimico3 = new Bioquimico({
+        CRQ : 2118,
+        nome : "Vicente",
+        sobrenome : "Kayser",
+        salario : 4200.00,
+        especialidade : "Fezes",
+        //exames :  [exameP1_2._id] 
+    });
+   
+    // bioquimico1.save(function (err) {
     //     if (err) return handleError(err);
-    //     console.log("salvando paciente2")
+    
+    //         console.log("salvando bioquimico1")
     // });
+    // bioquimico2.save(function (err) {
+    //     if (err) return handleError(err);
+    
+    //         console.log("salvando bioquimico2")
+    // });
+    // bioquimico3.save(function (err) {
+    //     if (err) return handleError(err);
+    
+    //         console.log("salvando bioquimico3")
+    // });
+
+    var lab = new Laboratorio({
+        nome : "Laboratório Bom Pastor",
+        cidade : "Taquara",
+        endereco : "Ed Fleming, R. Arnaldo da Costa Bard, 2940 - 101 - Centro",
+        telefone : 35421939,
+        //bioquimicos : [bioquimico1, bioquimico2, bioquimico3]
+    });
+    
 
     Exame.
         find({ tipos: 'Sangue, Colesterol, Glicose, Albumina' }).
@@ -102,4 +178,9 @@ db.once('open', function() {
             console.log('O nome do paciente vinculado ao exameP1 é: %s', exame.paciente.nome);
           });
 
+    Paciente.find({}).exec(function (err, pacientes) {
+        if (err) return handleError(err);
+        console.log("Pacientes: " + pacientes + '\n');
+    });
+    
 });
