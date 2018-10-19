@@ -1,0 +1,14 @@
+{
+  "name": "dbproject2",
+  "version": "1.0.0",
+  "description": "teste mongoose",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "gisela",
+  "license": "ISC",
+  "dependencies": {
+    "mongoose": "^5.3.4"
+  }
+}
